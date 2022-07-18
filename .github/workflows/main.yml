@@ -19,6 +19,12 @@ jobs:
         inlineScript: |
             az storage blob upload-batch --account-name imogenylstorage --auth-mode key -d '$web' -s .
 
+    - name: Purge CDN endpoint
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+           az cdn endpoint purge --no-wait --content-paths  "/*" --profile-name "static-website-imogenylme" --name "imogenyl" --resource-group "imogenyl"
+
   # Azure logout
     - name: logout
       run: |
